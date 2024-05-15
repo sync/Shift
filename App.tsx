@@ -5,9 +5,10 @@
  * @format
  */
 
-import React from 'react';
+import React, {startTransition, useState} from 'react';
 import type {PropsWithChildren} from 'react';
 import {
+  Button,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -57,6 +58,7 @@ function Section({children, title}: SectionProps): React.JSX.Element {
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
+  const [tab, setTab] = useState('about');
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
@@ -79,6 +81,15 @@ function App(): React.JSX.Element {
           <Section title="Step One">
             Edit <Text style={styles.highlight}>App.tsx</Text> to change this
             screen and then come back to see your edits.
+            <Button
+              title="Click me"
+              onPress={() => {
+                startTransition(() => {
+                  setTab('something');
+                });
+              }}
+            />
+            Selected tab: {tab}
           </Section>
           <Section title="See Your Changes">
             <ReloadInstructions />
